@@ -16,8 +16,15 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * BAMM_alternative_analyses
     * This is a folder for non-BAMM analyses, such as MS, QuaSSE, etc.
 
+* trait_scripts
+    * This folder contains scripts for analyses related to phenotypic traits.
+
 * biogeo 
-    * This folder contains the script for automatically determining biogeographic coding from shape files. It is an improvement over inflexible and inefficient methods we found elsewhere.
+    * This folder contains the script for automatically determining biogeographic coding from shape files, meant to address inflexible and inefficient methods we found elsewhere when we started this project.
+
+* name_resolution
+    * Scripts and data related to name scraping and synonymy resolution.
+
 
 # BAMM 
 * config.txt
