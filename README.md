@@ -44,6 +44,32 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * ultrametric_occur_trait_matched_forcedultra.tre
     * Tree matched with occurrence and trait data (a bit fewer taxa), used for phenotype BAMM
     
+# BAMM_postprocessing 
+* bammtools_diversification.R
+    * Standard workflow for processing BAMM diversification run. Note this is mostly a template for an interactive session, and not all analyses were run or used for the final paper.
+    
+* bammtools_trait.R
+    * Standard workflow for processing BAMM niche and phenotype run. File paths refer to niche data; those for phenotype data can be found in commented lines. Note this is mostly a template for an interactive session, and not all analyses were run or used for the final paper.
+
+* plot_ratecurves_together.R
+    * This is the plotting function for Fig. 2. Some post-processing in a vector graphics program will be needed.
+
+* cladewise_plots.r
+    * Script to generate rate plots for all of the non-monotypic families in each of diversification, niche, and phenotype. These plots were colored by ancestral temperature values, Hex codes for which are hard-coded in the script.
+    
+* plot_ratecurves_together_cladewise.R
+    * In contrast to cladewise_plots.r, this is a function to generate rate plots for families such as in Fig. 3, co-plotted by taxon rather than rate type.
+    
+ * subclade_shifttimes.r
+     * This script generates box plots for rate shift times for select families, as in Fig. 3, rather than whole-tree box plots.
+    
+* climatic_variability_analysis.r
+    * This script includes analyses to ingest Zachos 2001 temperature data (the path should be adjusted as necessary), generate windowed climate variability, and run models.
+
+* extract_tip_rates.r and tip_rate_density_plots.r    
+    * These scripts calculate tip rates for diversification, niche, and phenotype, and make density plots such as in Fig. 1.
+
+
 # BAMM_alternative_analyses
 * ms_rates_and_trait_rates.r
     * This script is for running the MS and OU sigma-squared analyses.
