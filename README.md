@@ -103,3 +103,23 @@ Scripts in this repository assume users have basic familiarity with conversion a
     
 * quasse_sim_example.r
     * This script represents one QuaSSE simulation run. Submit this script as independent jobs multiple times to get multiple simulations.
+    
+# trait_scripts
+* sax_trait_matrix_process_FINAL_excludemissing_distance_FINAL.py
+     * This script does the matrix 
+
+* pcoa_traitdata.r
+    * MDS script for trait data
+
+* phenotypic_loadings.r
+    * Script for calculating phenotype MDS "loadings"
+
+* Saxifragales trait data sheet.xlsx
+     * Original Saxifragales trait dataset
+
+* sax_traits_final_lowmissing.txt
+     * Final Saxifragales trait dataset, taxa excluded as described in Methods.
+
+* Trait_term_reconciliation.xlsx
+     * Summary of trait synonymies coded into sax_trait_matrix_process_FINAL_excludemissing_distance_FINAL.py
+
