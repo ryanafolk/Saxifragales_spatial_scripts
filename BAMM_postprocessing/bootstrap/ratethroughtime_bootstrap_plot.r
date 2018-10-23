@@ -1,0 +1,10 @@
+library("phytools")
+library("ape")
+library("BAMMtools")
+tree <- read.tree("./rep_XXX/bootstrap_sample.forcedultra.XXX.tre")
+edata <- getEventData(tree, eventdata = "./rep_XXX/sax_final_trait_bootXXX_event_data_bootXXX.txt", burnin=0.1, type = "trait")
+rtt <- getRateThroughTimeMatrix(edata)
+meanTraitRate <- colMeans(rtt$beta)
+rtt_times_frompresent = 113 - rtt$times
+dataframe = data.frame(rtt_times_frompresent, meanTraitRate)
+write.table(dataframe, "./meanrate.rep_XXX.txt")
