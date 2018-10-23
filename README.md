@@ -69,6 +69,33 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * extract_tip_rates.r and tip_rate_density_plots.r    
     * These scripts calculate tip rates for diversification, niche, and phenotype, and make density plots such as in Fig. 1.
 
+# BAMM_postprocessing/bootstrap
+* diversification_bootstrap.sh and config.txt
+    * Scripts and template for generating bootstrapped datasets for diversification BAMM. 
+
+* PCA_bootstrap.sh and PCA_bootstrap.r and config_trait_environmental.txt
+    * Scripts and template for generating bootstrapped datasets for niche BAMM. Assumes the environmental data have already been randomly sampled.
+
+* mds_bootstrap.sh and mds_bootstrap.r and config_trait_phenotypic_fixedmissing.txt
+    * Scripts and template for generating bootstrapped datasets for phenotype BAMM. Assumes replicate distance matrices have already been generated (see trait_scripts).
+
+* ratethroughtime_bootstrap_plot.sh and ratethroughtime_bootstrap_plot.r
+    * Script to pre-calculate rate curves for plotting with plot_BAMM_bootstraps.r
+
+* plot_BAMM_bootstraps.r
+    * Script for plotting bootstraps.
+    
+* time_to_50percentrate.r
+    * Script for calculating a boxplot of times to 50% of current rates.
+ 
+* used.trees.environmentmatched.tre 
+    * Bootstraps used for diversification and niche BAMM.
+     
+* used.trees.traitmatched.tre
+    * Bootstraps used for phenotype BAMM.
+
+* besttree_averagerates.tsv
+    * A table of average rates from BAMM runs on best trees. Used for co-plotting.
 
 # BAMM_alternative_analyses
 * ms_rates_and_trait_rates.r
