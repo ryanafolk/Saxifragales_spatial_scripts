@@ -126,3 +126,18 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * Trait_term_reconciliation.xlsx
      * Summary of trait synonymies coded into sax_trait_matrix_process_FINAL_excludemissing_distance_FINAL.py
 
+# name_resolution
+* FINAL_combined_cat_script_nomenclature.sh
+    * Final list of concatenation instructions for taxa based on the extracted Excel sheets of synonymies in this folder, with the priority order noted in the text
+    
+* final_crassbooklist.xlsx
+    * Extracted synonyms from the Illustrated Handbook of Succulent Plants: Crassulaceae. Eggli Ed.
+
+* FNA_all_no_crassulaceae.xlsx
+    * Extracted synonyms from the Flora of North America eFloras.org website
+    
+* All_FOC_nocrassulaceae.xlsx
+    * Extracted synonyms from the Flora of China eFloras.org website
+
+* TPL_allname_list_fixed_nocrassulaceae.xlsx
+    * Extracted synonyms from The Plant List.
