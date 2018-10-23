@@ -104,6 +104,9 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * quasse_sim_example.r
     * This script represents one QuaSSE simulation run. Submit this script as independent jobs multiple times to get multiple simulations.
     
+* RPANDAS.r
+    * RPANDA run script.
+    
 # trait_scripts
 * sax_trait_matrix_process_FINAL_excludemissing_distance_FINAL.py
      * This script does the matrix 
