@@ -46,10 +46,10 @@ Scripts in this repository assume users have basic familiarity with conversion a
     * Sampling fractions for families used in BAMM
 
 * ultrametric_occur_matched_forcedultra.tre
-    * Tree matched with occurrence data, used for diversification and niche BAMM
+    * Ultrametric time-calibrated tree matched with occurrence data, used for diversification and niche BAMM
 
 * ultrametric_occur_trait_matched_forcedultra.tre
-    * Tree matched with occurrence and trait data (a bit fewer taxa), used for phenotype BAMM
+    * Ultrametric time-calibrated tree matched with occurrence and trait data (a bit fewer taxa), used for phenotype BAMM
     
 # BAMM_postprocessing 
 * bammtools_diversification.R
