@@ -116,7 +116,7 @@ Scripts in this repository assume users have basic familiarity with conversion a
     
 # trait_scripts
 * sax_trait_matrix_process_FINAL_excludemissing_distance_FINAL.py
-     * This script does the matrix 
+     * This script does trait matrix conversion tasks and distance matrix calculations for phenotypic data.
 
 * pcoa_traitdata.r
     * MDS script for trait data
