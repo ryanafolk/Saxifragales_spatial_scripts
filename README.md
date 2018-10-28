@@ -1,5 +1,5 @@
 # Spatial and trait analyses for Saxifragales
-Scripts in this repository assume users have basic familiarity with conversion among common formats (csv to tsv, csv to ESRI shapefile, etc). Where a .sh and .r file have the same file name, the .sh script should be run first. Folders with more than one script are described in their own subsections.
+Scripts in this repository assume users have basic familiarity with conversion among common formats (csv to tsv, csv to ESRI shapefile, etc). Where a .sh and .r file have the same file name, the .r file is a template and the .sh script should be run only. Folders with more than one script are described in their own subsections.
 
 * Extract_point_values
     * This folder contains the script we optimized to extract environmental conditions from large point datasets.
