@@ -36,17 +36,17 @@
 
 # Saxifragales final version high throughput
 
-# No point associations between PNOs, no missing values
-mkdir pnos_directsampling
-for i in ./../Saxifragales_all_layers_30s/*.asc; do
-./extract_pointvalues_highthroughput.py ${i} -l *.tsv.maxent
-done
+## No point associations between PNOs, no missing values
+#mkdir pnos_directsampling
+#for i in ./../Saxifragales_all_layers_30s/*.asc; do
+#./extract_pointvalues_highthroughput.py ${i} -l *.tsv.maxent
+#done
 
-# Point association between PNOs, with missing values
-mkdir pnos_directsampling_with_missing_data
-for i in ./../Saxifragales_all_layers_30s/*.asc; do
-./extract_pointvalues_highthroughput_with_missing_data.py ${i} -l *.tsv.maxent
-done
+## Point association between PNOs, with missing values
+#mkdir pnos_directsampling_with_missing_data
+#for i in ./../Saxifragales_all_layers_30s/*.asc; do
+#./extract_pointvalues_highthroughput_with_missing_data.py ${i} -l *.tsv.maxent
+#done
 
 # This one drops only the missing values for each point, so point associations are lost
 mkdir pnos_directsampling_no_missing_data_no_point_associations
