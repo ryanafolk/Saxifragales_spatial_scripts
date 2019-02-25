@@ -16,7 +16,7 @@
 modeltype = trait     
 # Specify "speciationextinction" or "trait" analysis
                                   
-treefile = ultrametric_occur_matched_forcedultra.tre
+treefile = intree.dated.crossvalidated.occurrencematched.tre
 # File name of the phylogenetic tree to be analyzed
 
 traitfile = niche_phylopca_PC1.txt
@@ -69,27 +69,16 @@ overwrite = 1
 # Prior block chosen by BAMMtools::setBAMMpriors
 
 expectedNumberOfShifts = 1.0
-# prior on the number of shifts in diversification
-# Suggested values: 
-#     expectedNumberOfShifts = 1.0 for small trees (< 500 tips)
-#	  expectedNumberOfShifts = 10 or even 50 for large trees (> 5000 tips) 
 
-betaInitPrior = 1.84646612185138e-07
-# Prior (rate parameter of exponential) on the initial
-# phenotypic evolutionary rate associated with regimes
+betaInitPrior = 6.6171072327868e-08
 
-betaShiftPrior = 0.0101893311453966
-# Prior (std dev of normal) on the rate-change parameter
-# You cannot adjust the mean of this distribution (fixed at zero, which is
-# equal to a constant rate diversification process)
+betaShiftPrior = 0.0100003695618415
 
 useObservedMinMaxAsTraitPriors = 1
-# If True (1), will put a uniform prior density on the distribution
-# of ancestral character states, with upper and lower bounds determined
-# by the min and max of the observed data
 
 #### End Prior block
 ######################
+
 
 # Most of these will be non-functional with chosen prior:
 
