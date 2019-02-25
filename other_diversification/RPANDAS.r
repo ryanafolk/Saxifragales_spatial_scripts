@@ -80,15 +80,6 @@ mu_par <- c(0.09, 0.001)
 result_bexp_dlin <- fit_bd(tree, 112.99, f.lamb, f.mu, lamb_par, mu_par, f=0.606, expo.lamb=TRUE, dt=1e-3)
 
 
-# Linear speciation with time, linear extinction
-
-f.lamb <- function(t,y){y[1] + y[2] * t}
-f.mu <- function(t,y){y[1] + y[2] * t}
-lamb_par <- c(0.09, 0.001)
-mu_par <- c(0.09, 0.001)
-result_blin_dlin <- fit_bd(tree, 112.99, f.lamb, f.mu, lamb_par, mu_par, f=0.606, dt=1e-3)
-
-
 # Linear speciation with time, exponential extinction
 
 f.lamb <- function(t,y){y[1] + y[2] * t}
@@ -98,6 +89,15 @@ mu_par <- c(0.05, 0.01)
 result_blin_dexp <- fit_bd(tree, 112.99, f.lamb, f.mu, lamb_par, mu_par, f=0.606, expo.mu=TRUE, dt=1e-3)
 
 
+# Linear speciation with time, linear extinction
+
+f.lamb <- function(t,y){y[1] + y[2] * t}
+f.mu <- function(t,y){y[1] + y[2] * t}
+lamb_par <- c(0.09, 0.001)
+mu_par <- c(0.09, 0.001)
+result_blin_dlin <- fit_bd(tree, 112.99, f.lamb, f.mu, lamb_par, mu_par, f=0.606, dt=1e-3)
+
+
 # Exponential speciation with time, exponential extinction
 
 f.lamb<-function(t,y){y[1] * exp(y[2] * t)}
@@ -105,13 +105,6 @@ f.mu<-function(t,y){y[1] * exp(y[2] * t)}
 lamb_par <- c(0.05, 0.01)
 mu_par <- c(0.05, 0.01)
 result_bexp_dexp <- fit_bd(tree, 112.99, f.lamb, f.mu, lamb_par, mu_par, f=0.606, expo.lamb=TRUE, expo.mu=TRUE, dt=1e-3)
-
-fit_env(phylo, env_data, tot_time, f.lamb, f.mu, lamb_par, mu_par, df= NULL, f = 1,
-meth = "Nelder-Mead", cst.lamb = FALSE, cst.mu = FALSE,
-expo.lamb = FALSE, expo.mu = FALSE, fix.mu = FALSE,
-dt=0, cond = "crown")
-
-
 
 
 
@@ -194,35 +187,40 @@ lamb_par <- c(0.05, 0.01)
 mu_par <- c(0.05, 0.01)
 historical_temp_bexp_dexp <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
 
-### Time and temperature dependence
 
-# Exponential speciation wrt time, linear speciation wrt temperature, constant extinction
-f.lamb <- function(t,x,y){y[1] * exp(y[2] * t) + y[3] + y[4] * x }
-f.mu <- function(t,x,y){y[1]}
-lamb_par <- c(0.05, 0.01, 0.09, 0.001)
-mu_par <- c(0.005)
-historical_temp_bexptim_blintemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
 
-# Exponential speciation wrt time, exponential speciation wrt temperature, constant extinction
-f.lamb <- function(t,x,y){y[1] * exp(y[2] * x) + y[3] * exp(y[4] * t)}
-f.mu <- function(t,x,y){y[1]}
-lamb_par <- c(0.05, 0.01, 0.05, 0.01)
-mu_par <- c(0.005)
-historical_temp_bexptim_bexptemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
 
-# Linear speciation wrt time, linear speciation wrt temperature, constant extinction
-f.lamb <- function(t,x,y){y[1] * y[2] * x + y[3] * t} # Only three terms here because only one intercept is needed
-f.mu <- function(t,x,y){y[1]}
-lamb_par <- c(0.01, 0.05, 0.01)
-mu_par <- c(0.005)
-historical_temp_blintim_blintemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
 
-# Linear speciation wrt time, exponential speciation wrt temperature, constant extinction
-f.lamb <- function(t,x,y){y[1] * exp(y[2] * x) + y[3]+ y[4] * t}
-f.mu <- function(t,x,y){y[1]}
-lamb_par <- c(0.09, 0.001, 0.05, 0.01)
-mu_par <- c(0.005)
-historical_temp_blintim_bexptemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
+# Combined models not used per RPANDA developer advice
+#### Time and temperature dependence
+#
+## Exponential speciation wrt time, linear speciation wrt temperature, constant extinction
+#f.lamb <- function(t,x,y){y[1] * exp(y[2] * t) + y[3] + y[4] * x }
+#f.mu <- function(t,x,y){y[1]}
+#lamb_par <- c(0.05, 0.01, 0.09, 0.001)
+#mu_par <- c(0.005)
+#historical_temp_bexptim_blintemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
+#
+## Exponential speciation wrt time, exponential speciation wrt temperature, constant extinction
+#f.lamb <- function(t,x,y){y[1] * exp(y[2] * x) + y[3] * exp(y[4] * t)}
+#f.mu <- function(t,x,y){y[1]}
+#lamb_par <- c(0.05, 0.01, 0.05, 0.01)
+#mu_par <- c(0.005)
+#historical_temp_bexptim_bexptemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
+#
+## Linear speciation wrt time, linear speciation wrt temperature, constant extinction
+#f.lamb <- function(t,x,y){y[1] * y[2] * x + y[3] * t} # Only three terms here because only one intercept is needed
+#f.mu <- function(t,x,y){y[1]}
+#lamb_par <- c(0.01, 0.05, 0.01)
+#mu_par <- c(0.005)
+#historical_temp_blintim_blintemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
+#
+## Linear speciation wrt time, exponential speciation wrt temperature, constant extinction
+#f.lamb <- function(t,x,y){y[1] * exp(y[2] * x) + y[3]+ y[4] * t}
+#f.mu <- function(t,x,y){y[1]}
+#lamb_par <- c(0.09, 0.001, 0.05, 0.01)
+#mu_par <- c(0.005)
+#historical_temp_blintim_bexptemp_dcst <- fit_env(tree, tempcurve, 112.99, f.lamb, f.mu, lamb_par, mu_par, df = dof, f = 0.606, dt=1e-3)
 
 
 
@@ -244,7 +242,6 @@ names(trait.pheno) <- row.names(tempfile)
 dof<-smooth.spline(tempcurve[,1], tempcurve[,2])$df # Calculate degrees of freedom following RPANDA manual
 
 historical_temp_trait_model_exp <- fit_t_env(tree.pheno, trait.pheno, tempcurve, error = NA, df = dof, model = "EnvExp", param=c(0.1,0), scale=TRUE)
-
 historical_temp_trait_model_lin <- fit_t_env(tree.pheno, trait.pheno, tempcurve, error = NA, df = dof, model = "EnvLin", param=c(0.1,0), scale=TRUE)
 
 # Compare to null models without environment following Drury et al. 2016 Sys Bio
@@ -278,3 +275,73 @@ historical_temp_trait_model_lin <- fit_t_env(tree, trait.env.scaled, tempcurve, 
 library(geiger)
 fitContinuous(tree, trait.env.scaled, model = "BM")
 fitContinuous(tree, trait.env.scaled, model = "OU")
+
+
+#####
+# SUBTREE EXTRACTION TO REDO THE ABOVE; RELOAD TREE AND TRAIT EACH TIME AS ABOVE
+
+library(geiger)
+# Saxifragaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Heuchera_americana", "Saxifraga_stolonifera")))
+#trait.env = treedata(tree, trait.env)$data
+# Crassulaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Crassula_helmsii", "Sedum_acre")))
+#trait.env = treedata(tree, trait.env)$data
+# Hamamelidaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Rhodoleia_championii", "Hamamelis_virginiana")))
+#trait.env = treedata(tree, trait.env)$data
+# Grossulariaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Ribes_giraldii", "Ribes_nigrum")))
+#trait.env = treedata(tree, trait.env)$data
+# Haloragaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Glischrocaryon_behrii", "Myriophyllum_aquaticum")))
+#trait.env = treedata(tree, trait.env)$data
+# Paeoniaceae
+tree = extract.clade(tree, node = findMRCA(tree, tips = c("Paeonia_morisii", "Paeonia_brownii")))
+#trait.env = treedata(tree, trait.env)$data
+
+
+#####
+# OBJECT LIST
+
+# Time dependence
+
+# Constant speciation, no extinction
+result_cst
+# Exponential speciation with time, no extinction
+result_exp
+# Linear speciation with time, no extinction
+result_lin
+# Exponential speciation with time, constant extinction
+result_bexp_dcst
+# Linear speciation with time, constant extinction
+result_blin_dcst
+# Exponential speciation with time, linear extinction
+result_bexp_dlin
+# Linear speciation with time, linear extinction
+result_blin_dlin
+# Linear speciation with time, exponential extinction
+result_blin_dexp
+# Exponential speciation with time, exponential extinction
+result_bexp_dexp
+
+# Temperature dependence
+
+# Constant speciation wrt temp, no extinction
+historical_temp_bconst_d0
+# Exponential speciation wrt temp, no extinction
+historical_temp_bexp_d0
+# Linear speciation wrt temp, no extinction
+historical_temp_blin_d0
+# Exponential speciation wrt temp, constant extinction
+historical_temp_bexp_dcst
+# Linear speciation wrt temp, constant extinction
+historical_temp_blin_dcst
+# Exponential speciation wrt temp, linear extinction wrt temp
+historical_temp_bexp_dlin
+# Linear speciation wrt temp, exponential extinction wrt temp
+historical_temp_blin_dexp
+# Linear speciation wrt temp, linear extinction wrt temp
+historical_temp_blin_dlin
+# Exponential speciation wrt temp, exponential extinction wrt temp
+historical_temp_bexp_dexp
