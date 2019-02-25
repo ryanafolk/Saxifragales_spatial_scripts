@@ -1,6 +1,6 @@
 # Cladewise plots
 
-# Load edata object -- UNLADDERIZED
+# Load edata object
 
 library(BAMMtools)
 
@@ -9,22 +9,20 @@ library(BAMMtools)
 # DIVERSIFICATION
 
 # Calculate rate matrices
-# Make sure these make sense -- even tree ladderization in the source file can change node numbering
-# These numbers are for non-ladderized edata file
-ratematrix_diversification_peridiscaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2789) # Peridiscaceae
-ratematrix_diversification_paeoniaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2796) # Paeoniaceae
-ratematrix_diversification_daphniphyllaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2828) # Daphniphyllaceae
-ratematrix_diversification_altingiaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2898) # Altingiaceae
-ratematrix_diversification_hamamelidaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2842) # Hamamelidaceae
-ratematrix_diversification_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2840) # Cercidiphyllaceae
-ratematrix_diversification_iteaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2201) # Iteaceae
-ratematrix_diversification_grossulariaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2215) # Grossulariaceae
-ratematrix_diversification_saxifragaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2200) # Saxifragaceae
-ratematrix_diversification_crassulaceae <- getRateThroughTimeMatrix(edata_diversification, node = 1460) # Crassulaceae
-ratematrix_diversification_cynomoriaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2199) # Cynomoriaceae
-ratematrix_diversification_aphanopetalaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2096) # Aphanopetalaceae
-ratematrix_diversification_penthoraceae <- getRateThroughTimeMatrix(edata_diversification, node = 2098) # Penthoraceae
-ratematrix_diversification_haloragaceae <- getRateThroughTimeMatrix(edata_diversification, node = 2099) # Haloragaceae
+ratematrix_diversification_peridiscaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Medusandra_richardsiana", "Peridiscus_lucidus")) # Peridiscaceae
+ratematrix_diversification_paeoniaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Paeonia_morisii", "Paeonia_brownii")) # Paeoniaceae
+ratematrix_diversification_daphniphyllaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Daphniphyllum_macropodum", "Daphniphyllum_laurinum")) # Daphniphyllaceae
+ratematrix_diversification_altingiaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Semiliquidambar_cathayensis", "Liquidambar_styraciflua")) # Altingiaceae
+ratematrix_diversification_hamamelidaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Rhodoleia_championii", "Hamamelis_virginiana")) # Hamamelidaceae
+ratematrix_diversification_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Cercidiphyllum_japonicum", "Cercidiphyllum_magnificum")) # Cercidiphyllaceae
+ratematrix_diversification_iteaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Itea_virginica", "Pterostemon_rotundifolius")) # Iteaceae
+ratematrix_diversification_grossulariaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Ribes_giraldii", "Ribes_aureum")) # Grossulariaceae
+ratematrix_diversification_saxifragaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Saxifraga_stolonifera", "Heuchera_mexicana")) # Saxifragaceae 
+ratematrix_diversification_crassulaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Crassula_helmsii", "Sedum_album")) # Crassulaceae
+ratematrix_diversification_cynomoriaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Cynomorium_songaricum", "Cynomorium_coccineum")) # Cynomoriaceae
+ratematrix_diversification_aphanopetalaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Aphanopetalum_resinosum", "Aphanopetalum_clematideum")) # Aphanopetalaceae
+ratematrix_diversification_penthoraceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Penthorum_sedoides", "Penthorum_chinense")) # Penthoraceae
+ratematrix_diversification_haloragaceae <- getRateThroughTimeMatrix(edata_diversification, node = fastMRCA(tree.diversification, "Glischrocaryon_behrii", "Myriophyllum_aquaticum")) # Haloragaceae
 
 # Color by ancestral value of mean annual temperature
 # 2789	Peridiscaceae	204.4171	
@@ -68,6 +66,7 @@ observed_values
 colfunc <- colorRampPalette(c("blue", "red"))
 colors = colfunc(100)
 
+dev.new(width=6, height=5)
 plotRateThroughTime(ratematrix_diversification_peridiscaceae, opacity = 0, avgCol="#FF0000", ratetype="netdiv", ylim = c(0, 0.6))
 plotRateThroughTime(ratematrix_diversification_paeoniaceae, opacity = 0, avgCol="#4F00AF", ratetype="netdiv", ylim = c(0, 0.6), add = TRUE)
 plotRateThroughTime(ratematrix_diversification_daphniphyllaceae, opacity = 0, avgCol="#D80026",ratetype="netdiv", ylim = c(0, 0.6), add = TRUE)
@@ -88,23 +87,22 @@ plotRateThroughTime(ratematrix_diversification_haloragaceae, opacity = 0, avgCol
 # ENVIRONMENT
 
 # Calculate rate matrices
-# Make sure these make sense -- even tree ladderization in the source file can change node numbering
-# These numbers are for non-ladderized edata file
-ratematrix_environment_peridiscaceae <- getRateThroughTimeMatrix(edata_environment, node = 2789) # Peridiscaceae
-ratematrix_environment_paeoniaceae <- getRateThroughTimeMatrix(edata_environment, node = 2796) # Paeoniaceae
-ratematrix_environment_daphniphyllaceae <- getRateThroughTimeMatrix(edata_environment, node = 2828) # Daphniphyllaceae
-ratematrix_environment_altingiaceae <- getRateThroughTimeMatrix(edata_environment, node = 2898) # Altingiaceae
-ratematrix_environment_hamamelidaceae <- getRateThroughTimeMatrix(edata_environment, node = 2842) # Hamamelidaceae
-ratematrix_environment_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_environment, node = 2840) # Cercidiphyllaceae
-ratematrix_environment_iteaceae <- getRateThroughTimeMatrix(edata_environment, node = 2201) # Iteaceae
-ratematrix_environment_grossulariaceae <- getRateThroughTimeMatrix(edata_environment, node = 2215) # Grossulariaceae
-ratematrix_environment_saxifragaceae <- getRateThroughTimeMatrix(edata_environment, node = 2200) # Saxifragaceae
-ratematrix_environment_crassulaceae <- getRateThroughTimeMatrix(edata_environment, node = 1460) # Crassulaceae
-ratematrix_environment_cynomoriaceae <- getRateThroughTimeMatrix(edata_environment, node = 2199) # Cynomoriaceae
-ratematrix_environment_aphanopetalaceae <- getRateThroughTimeMatrix(edata_environment, node = 2096) # Aphanopetalaceae
-ratematrix_environment_penthoraceae <- getRateThroughTimeMatrix(edata_environment, node = 2098) # Penthoraceae
-ratematrix_environment_haloragaceae <- getRateThroughTimeMatrix(edata_environment, node = 2099) # Haloragaceae
+ratematrix_environment_peridiscaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Medusandra_richardsiana", "Peridiscus_lucidus")) # Peridiscaceae
+ratematrix_environment_paeoniaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Paeonia_morisii", "Paeonia_brownii")) # Paeoniaceae
+ratematrix_environment_daphniphyllaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Daphniphyllum_macropodum", "Daphniphyllum_laurinum")) # Daphniphyllaceae
+ratematrix_environment_altingiaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Semiliquidambar_cathayensis", "Liquidambar_styraciflua")) # Altingiaceae
+ratematrix_environment_hamamelidaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Rhodoleia_championii", "Hamamelis_virginiana")) # Hamamelidaceae
+ratematrix_environment_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Cercidiphyllum_japonicum", "Cercidiphyllum_magnificum")) # Cercidiphyllaceae
+ratematrix_environment_iteaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Itea_virginica", "Pterostemon_rotundifolius")) # Iteaceae
+ratematrix_environment_grossulariaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Ribes_giraldii", "Ribes_aureum")) # Grossulariaceae
+ratematrix_environment_saxifragaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Saxifraga_stolonifera", "Heuchera_mexicana")) # Saxifragaceae
+ratematrix_environment_crassulaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Crassula_helmsii", "Sedum_album")) # Crassulaceae
+ratematrix_environment_cynomoriaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Cynomorium_songaricum", "Cynomorium_coccineum")) # Cynomoriaceae
+ratematrix_environment_aphanopetalaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Aphanopetalum_resinosum", "Aphanopetalum_clematideum")) # Aphanopetalaceae
+ratematrix_environment_penthoraceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Penthorum_sedoides", "Penthorum_chinense")) # Penthoraceae
+ratematrix_environment_haloragaceae <- getRateThroughTimeMatrix(edata_environment, node = fastMRCA(tree.environment, "Glischrocaryon_behrii", "Myriophyllum_aquaticum")) # Haloragaceae
 
+dev.new(width=6, height=5)
 plotRateThroughTime(ratematrix_environment_peridiscaceae, opacity = 0, avgCol="#FF0000", ylim = c(0, 3e6))
 plotRateThroughTime(ratematrix_environment_paeoniaceae, opacity = 0, avgCol="#4F00AF", ylim = c(0, 3e6), add = TRUE)
 plotRateThroughTime(ratematrix_environment_daphniphyllaceae, opacity = 0, avgCol="#D80026", ylim = c(0, 3e6), add = TRUE)
@@ -125,34 +123,33 @@ plotRateThroughTime(ratematrix_environment_haloragaceae, opacity = 0, avgCol="#A
 # PHENOTYPE
 
 # Calculate rate matrices
-# Make sure these make sense -- even tree ladderization in the source file can change node numbering
-# These numbers are for non-ladderized edata file
-ratematrix_phenotype_peridiscaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2673) # Peridiscaceae
-ratematrix_phenotype_paeoniaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2679) # Paeoniaceae
-ratematrix_phenotype_daphniphyllaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2702) # Daphniphyllaceae
-ratematrix_phenotype_altingiaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2764) # Altingiaceae
-ratematrix_phenotype_hamamelidaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2715) # Hamamelidaceae
-ratematrix_phenotype_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2713) # Cercidiphyllaceae
-ratematrix_phenotype_iteaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2121) # Iteaceae
-ratematrix_phenotype_grossulariaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2135) # Grossulariaceae
-ratematrix_phenotype_saxifragaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2211) # Saxifragaceae
-ratematrix_phenotype_crassulaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 1393) # Crassulaceae
-ratematrix_phenotype_cynomoriaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2119) # Cynomoriaceae
+ratematrix_phenotype_peridiscaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Medusandra_richardsiana", "Peridiscus_lucidus")) # Peridiscaceae
+ratematrix_phenotype_paeoniaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Paeonia_daurica", "Paeonia_brownii")) # Paeoniaceae -- different for this smaller tree
+ratematrix_phenotype_daphniphyllaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Daphniphyllum_macropodum", "Daphniphyllum_laurinum")) # Daphniphyllaceae
+ratematrix_phenotype_altingiaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Semiliquidambar_cathayensis", "Liquidambar_styraciflua")) # Altingiaceae
+ratematrix_phenotype_hamamelidaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Rhodoleia_championii", "Hamamelis_virginiana")) # Hamamelidaceae
+ratematrix_phenotype_cercidiphyllaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Cercidiphyllum_japonicum", "Cercidiphyllum_magnificum")) # Cercidiphyllaceae
+ratematrix_phenotype_iteaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Itea_virginica", "Pterostemon_rotundifolius")) # Iteaceae
+ratematrix_phenotype_grossulariaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Ribes_giraldii", "Ribes_aureum")) # Grossulariaceae
+ratematrix_phenotype_saxifragaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Saxifraga_stolonifera", "Heuchera_mexicana")) # Saxifragaceae
+ratematrix_phenotype_crassulaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Crassula_helmsii", "Sedum_album")) # Crassulaceae
+ratematrix_phenotype_cynomoriaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Cynomorium_songaricum", "Cynomorium_coccineum")) # Cynomoriaceae
 # ratematrix_phenotype_aphanopetalaceae <- getRateThroughTimeMatrix(edata_phenotype, node = x) # Aphanopetalaceae # Monotypic for this dataset
-ratematrix_phenotype_penthoraceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2022) # Penthoraceae
-ratematrix_phenotype_haloragaceae <- getRateThroughTimeMatrix(edata_phenotype, node = 2023) # Haloragaceae
+ratematrix_phenotype_penthoraceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Penthorum_sedoides", "Penthorum_chinense")) # Penthoraceae
+ratematrix_phenotype_haloragaceae <- getRateThroughTimeMatrix(edata_phenotype, node = fastMRCA(tree.phenotype, "Glischrocaryon_behrii", "Myriophyllum_aquaticum")) # Haloragaceae
 
-plotRateThroughTime(ratematrix_phenotype_peridiscaceae, opacity = 0, avgCol="#FF0000", ylim = c(0, 3))
-plotRateThroughTime(ratematrix_phenotype_paeoniaceae, opacity = 0, avgCol="#4F00AF", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_daphniphyllaceae, opacity = 0, avgCol="#D80026", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_altingiaceae, opacity = 0, avgCol="#D80026", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_hamamelidaceae, opacity = 0, avgCol="#C80036", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_cercidiphyllaceae, opacity = 0, avgCol="#1200EC", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_iteaceae, opacity = 0, avgCol="#90006E", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_grossulariaceae, opacity = 0, avgCol="#0000FF", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_saxifragaceae, opacity = 0, avgCol="#7E0080", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_crassulaceae, opacity = 0, avgCol="#7B0083", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_cynomoriaceae, opacity = 0, avgCol="#64009A", ylim = c(0, 3), add = TRUE)
-# plotRateThroughTime(ratematrix_phenotype_aphanopetalaceae, opacity = 0, avgCol="#C80036", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_penthoraceae, opacity = 0, avgCol="#7B0083", ylim = c(0, 3), add = TRUE)
-plotRateThroughTime(ratematrix_phenotype_haloragaceae, opacity = 0, avgCol="#AC0052", ylim = c(0, 3), add = TRUE)
+dev.new(width=6, height=5)
+plotRateThroughTime(ratematrix_phenotype_peridiscaceae, opacity = 0, avgCol="#FF0000", ylim = c(0, 1.5))
+plotRateThroughTime(ratematrix_phenotype_paeoniaceae, opacity = 0, avgCol="#4F00AF", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_daphniphyllaceae, opacity = 0, avgCol="#D80026", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_altingiaceae, opacity = 0, avgCol="#D80026", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_hamamelidaceae, opacity = 0, avgCol="#C80036", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_cercidiphyllaceae, opacity = 0, avgCol="#1200EC", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_iteaceae, opacity = 0, avgCol="#90006E", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_grossulariaceae, opacity = 0, avgCol="#0000FF", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_saxifragaceae, opacity = 0, avgCol="#7E0080", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_crassulaceae, opacity = 0, avgCol="#7B0083", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_cynomoriaceae, opacity = 0, avgCol="#64009A", ylim = c(0, 1.5), add = TRUE)
+# plotRateThroughTime(ratematrix_phenotype_aphanopetalaceae, opacity = 0, avgCol="#C80036", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_penthoraceae, opacity = 0, avgCol="#7B0083", ylim = c(0, 1.5), add = TRUE)
+plotRateThroughTime(ratematrix_phenotype_haloragaceae, opacity = 0, avgCol="#AC0052", ylim = c(0, 1.5), add = TRUE)

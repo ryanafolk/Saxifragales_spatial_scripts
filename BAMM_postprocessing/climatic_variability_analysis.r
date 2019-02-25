@@ -6,19 +6,20 @@ library(BAMMtools)
 # This takes a long time
 rtt <- getRateThroughTimeMatrix(edata_environment, start.time = 15, end.time = 0, nslices = 500)
 meanTraitRate <- colMeans(rtt$beta)
-rtt_times_frompresent = 113 - rtt$times
+rtt_times_frompresent = 112.99 - rtt$times
+# 
 dataframe = data.frame(rtt_times_frompresent, meanTraitRate)
 write.table(dataframe, "./environment_ratethroughtime_besttree_Miocene.txt")
 
 rtt <- getRateThroughTimeMatrix(edata_phenotype, start.time = 15, end.time = 0, nslices = 500)
 meanTraitRate <- colMeans(rtt$beta)
-rtt_times_frompresent = 113 - rtt$times
+rtt_times_frompresent = 112.99 - rtt$times
 dataframe = data.frame(rtt_times_frompresent, meanTraitRate)
 write.table(dataframe, "./phenotype_ratethroughtime_besttree_Miocene.txt")
 
 rtt <- getRateThroughTimeMatrix(edata_diversification, start.time = 15, end.time = 0, nslices = 500)
 meanTraitRate <- colMeans(rtt$lambda - rtt$mu)
-rtt_times_frompresent = 113 - rtt$times
+rtt_times_frompresent = 112.99 - rtt$times
 dataframe = data.frame(rtt_times_frompresent, meanTraitRate)
 write.table(dataframe, "./diversification_ratethroughtime_besttree_Miocene.txt")
 
@@ -47,6 +48,11 @@ plot(range_windows$range ~ range_windows$ages, pch = 19, cex = 0.4)
 bestfile_environment = read.csv(file = "environment_ratethroughtime_besttree_Miocene.txt", header = TRUE, sep = "\t")
 bestfile_phenotype = read.csv(file = "phenotype_ratethroughtime_besttree_Miocene.txt", header = TRUE, sep = "\t")
 bestfile_diversification = read.csv(file = "diversification_ratethroughtime_besttree_Miocene.txt", header = TRUE, sep = "\t")
+
+# CORRECTION FOR SLIGHTLY DIFFERENT BEAST ROOT DATE
+bestfile_environment$rtt_times_frompresent = bestfile_environment$rtt_times_frompresent + 2.13
+bestfile_phenotype$rtt_times_frompresent = bestfile_phenotype$rtt_times_frompresent + 2.13
+bestfile_diversification$rtt_times_frompresent = bestfile_diversification$rtt_times_frompresent + 2.13
 
 
 ################
@@ -83,18 +89,20 @@ plot(interpolation$corresponding_tempC_5pt ~ interpolation$times, xlim = c(15, 0
 title("Temperature data")
 
 # Plot trait rate vs. temperature
-plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean trait rate")
-title("Temperature vs. mean niche lability")
+#plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean trait rate")
+#title("Temperature vs. mean niche lability")
 trait_temp_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt) # Exponential model
 AIC(trait_temp_model)
 summary(trait_temp_model)
+dev.new(width=4.5, height=4)
 plot(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Logarithm of mean trait rate")
-title("Temperature vs. log mean niche lability")
+title("Temperature vs.\nlog mean niche lability")
 abline(trait_temp_model)
 
 # Plot trait rate vs. windowed temperature range
-plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation per window (degrees C)", ylab = "Logarithm of mean trait rate")
-title("Temperature variability vs. log mean niche lability")
+dev.new(width=4.5, height=4)
+plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation\nper window (degrees C)", ylab = "Logarithm of mean trait rate")
+title("Temperature variability vs.\nlog mean niche lability")
 trait_temp_variability_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_range)
 AIC(trait_temp_variability_model)
 summary(trait_temp_variability_model)
@@ -105,8 +113,8 @@ combined_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_
 summary(combined_model)
 
 # Combined standardized model
-interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt))/sd(interpolation$corresponding_tempC_5pt)
-interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range))/sd(interpolation$corresponding_range)
+interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt, na.rm = TRUE))/sd(interpolation$corresponding_tempC_5pt, na.rm = TRUE)
+interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range, na.rm = TRUE))/sd(interpolation$corresponding_range, na.rm = TRUE)
 combined_standardized_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt_standardized + interpolation$corresponding_range_standardized) # Exponential model
 summary(combined_standardized_model)
 AIC(combined_standardized_model)
@@ -124,6 +132,7 @@ corresponding_range = lapply(bestfile_phenotype$rtt_times_frompresent, interpol_
 corresponding_range  = sapply(corresponding_range, "[[", 2) # Collapse list of lists, taking second element only
 
 times = bestfile_phenotype$rtt_times_frompresent
+
 
 # Function to interpolate temperature values
 interpol_temp_by_date = function(var1) {
@@ -145,18 +154,20 @@ plot(interpolation$corresponding_tempC_5pt ~ interpolation$times, xlim = c(15, 0
 title("Temperature data")
 
 # Plot trait rate vs. temperature
-plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean trait rate")
-title("Temperature vs. mean phenotypic lability")
+#plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean trait rate")
+#title("Temperature vs. mean phenotypic lability")
+dev.new(width=4.5, height=4)
 trait_temp_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt) # Exponential model
 AIC(trait_temp_model)
 summary(trait_temp_model)
 plot(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Logarithm of mean trait rate")
-title("Temperature vs. log mean phenotypic lability")
+title("Temperature vs.\nlog mean phenotypic lability")
 abline(trait_temp_model)
 
 # Plot trait rate vs. windowed temperature range
-plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation per window (degrees C)", ylab = "Logarithm of mean trait rate")
-title("Temperature variability vs. log mean phenotypic lability")
+dev.new(width=4.5, height=4)
+plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation\nper window (degrees C)", ylab = "Logarithm of mean trait rate")
+title("Temperature variability vs.\nlog mean phenotypic lability")
 trait_temp_variability_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_range)
 AIC(trait_temp_variability_model)
 summary(trait_temp_variability_model)
@@ -167,8 +178,8 @@ combined_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_
 summary(combined_model)
 
 # Combined standardized model
-interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt))/sd(interpolation$corresponding_tempC_5pt)
-interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range))/sd(interpolation$corresponding_range)
+interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt, na.rm = TRUE))/sd(interpolation$corresponding_tempC_5pt, na.rm = TRUE)
+interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range, na.rm = TRUE))/sd(interpolation$corresponding_range, na.rm = TRUE)
 combined_standardized_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt_standardized + interpolation$corresponding_range_standardized) # Exponential model
 summary(combined_standardized_model)
 AIC(combined_standardized_model)
@@ -204,22 +215,24 @@ interpolation$traitrate = bestfile_diversification$meanTraitRate
 interpolation$corresponding_tempC_5pt = corresponding_tempC_5pt
 
 # Plot temperature data
-plot(interpolation$corresponding_tempC_5pt ~ interpolation$times, xlim = c(15, 0), pch = 19, cex = 0.5, ylab = "Temperature (degrees C)", xlab = "Time (mya)")
-title("Temperature data")
+#plot(interpolation$corresponding_tempC_5pt ~ interpolation$times, xlim = c(15, 0), pch = 19, cex = 0.5, ylab = "Temperature (degrees C)", xlab = "Time (mya)")
+#title("Temperature data")
 
 # Plot diversification rate vs. temperature
-plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean net diversification")
-title("Temperature vs. net diversification")
+#plot(interpolation$traitrate ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Mean net diversification")
+#title("Temperature vs. net diversification")
 trait_temp_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt) # Exponential model
 AIC(trait_temp_model)
 summary(trait_temp_model)
+dev.new(width=4.5, height=4)
 plot(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt, pch = 19, cex = 0.5, xlab = "Temperature (degrees C)", ylab = "Logarithm of mean net diversification")
-title("Temperature vs. log diversification")
+title("Temperature vs.\nlog net diversification")
 abline(trait_temp_model)
 
 # Plot diversification rate vs. windowed temperature range
-plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation per window (degrees C)", ylab = "Logarithm of mean net diversification")
-title("Temperature variability vs. log diversification")
+dev.new(width=4.5, height=4)
+plot(log(interpolation$traitrate) ~ interpolation$corresponding_range, pch = 19, cex = 0.5, xlab = "Temperature standard deviation\nper window (degrees C)", ylab = "Logarithm of mean net diversification")
+title("Temperature variability vs.\nlog net diversification")
 trait_temp_variability_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_range)
 AIC(trait_temp_variability_model)
 summary(trait_temp_variability_model)
@@ -230,8 +243,8 @@ combined_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_
 summary(combined_model)
 
 # Combined standardized model
-interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt))/sd(interpolation$corresponding_tempC_5pt)
-interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range))/sd(interpolation$corresponding_range)
+interpolation$corresponding_tempC_5pt_standardized = (interpolation$corresponding_tempC_5pt - mean(interpolation$corresponding_tempC_5pt, na.rm = TRUE))/sd(interpolation$corresponding_tempC_5pt, na.rm = TRUE)
+interpolation$corresponding_range_standardized = (interpolation$corresponding_range - mean(interpolation$corresponding_range, na.rm = TRUE))/sd(interpolation$corresponding_range, na.rm = TRUE)
 combined_standardized_model <- lm(log(interpolation$traitrate) ~ interpolation$corresponding_tempC_5pt_standardized + interpolation$corresponding_range_standardized) # Exponential model
 summary(combined_standardized_model)
 AIC(combined_standardized_model)
