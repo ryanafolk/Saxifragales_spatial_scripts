@@ -67,8 +67,11 @@ Scripts in this repository assume users have basic familiarity with conversion a
 * plot_ratecurves_together_cladewise.R
     * In contrast to cladewise_plots.r, this is a function to generate rate plots for families such as in Fig. 3, co-plotted by taxon rather than rate type.
     
- * subclade_shifttimes.r
+* subclade_shifttimes.r
      * This script generates box plots for rate shift times for select families, as in Fig. 3, rather than whole-tree box plots.
+     
+* major_shift_timings.r
+     * This script generates box plots for timings of diversification shifts and major shifts in niche and phenotype, as described in the main text.
     
 * climatic_variability_analysis.r
     * This script includes analyses to ingest Zachos 2001 temperature data (the path should be adjusted as necessary), generate windowed climate variability, and run models.
